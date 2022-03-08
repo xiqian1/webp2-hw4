@@ -1,0 +1,115 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Week 3 Template</title>
+<link rel="stylesheet" href="styles.css">
+
+<script src="utilities.js"></script>
+<script>
+
+    var t = 0,
+    i=0,
+    material = ['SAND',
+    'DUST',
+    '<span style="color:white">L</span>EAVES',
+    'PAPER',
+    'TIN',
+    'ROOTS',
+    'BRICK',
+    '<span style="color:white">ST</span>ONE',
+    '<span style="color:white">DI</span>SCAR<span style="color:white">DED </span>CLOT<span style="color:white">HING</span>',
+    'GLASS',
+    '<span style="color:white">ST</span>EEL',
+    '<span style="color:white">P</span>LAST<span style="color:white">IC</span>',
+    'MUD',
+    '<span style="color:white">BR</span>OK<span style="color:white">EN DISHES</span>',
+    'WOOD',
+    '<span style="color:white">ST</span>RAW',
+    'WEED<span style="color:white">S</span>'],
+    place = ['IN <span style="color:white">A GREEN, MOSSY</span> TERRA<span style="color:white">IN</span>',
+    'IN A<span style="color:white">N OVERPOPU</span>LATE<span style="color:white">D</span> AREA',
+    'BY THE SEA',
+    'BY A<span style="color:white">N A</span>BAND<span style="color:white">ONED LAKE</span>',
+    'IN <span style="color:white">A DESERTED </span>FACT<span style="color:white">ORY</span>',
+    'IN DENS<span style="color:white">E WOODS</span>',
+    'IN JAPAN',
+    'AMONG <span style="color:white">SM</span>ALL <span style="color:white">H</span>ILLS',
+    '<span style="color:white">IN S</span>OUT<span style="color:white">HERN F</span>RAN<span style="color:white">CE</span>',
+    'AM<span style="color:white">ONG H</span>I<span style="color:white">GH MOUNTAINS</span>',
+    'ON <span style="color:white">AN IS</span>LAND',
+    'IN <span style="color:white">A C</span>OLD<span style="color:white">,</span> WIND<span style="color:white">Y CLIMATE</span>',
+    'IN <span style="color:white">A P</span>LACE <span style="color:white">W</span>I<span style="color:white">TH BOTH HEAVY RAIN AND B</span>RIG<span style="color:white">HT SUN</span>',
+    'IN <span style="color:white">A </span>DESERT<span style="color:white">ED</span> AIR<span style="color:white">PORT</span>',
+    'I<span style="color:white">N A HOT CLIM</span>ATE',
+    'I<span style="color:white">NSIDE A </span>MOUNT<span style="color:white">AIN</span>',
+    'ON THE SEA',
+    'IN <span style="color:white">MI</span>CHI<span style="color:white">GAN</span>',
+    'IN <span style="color:white">HEAVY JUNGLE UNDER</span>GROWTH',
+    'BY A RIVER',
+    'AMONG OTHER <span style="color:white">HO</span>USES',
+    'IN A DESERT<span style="color:white">ED</span> CHURCH',
+    'IN A METRO<span style="color:white">POLIS</span>',
+    'UNDERWATER'],
+    light_source = ['<span style="color:white">CANDLES</span>',
+    'ALL<span style="color:white"> AVAILABLE LIGHTING</span>',
+    '<span style="color:white">ELECTRI</span>CITY',
+    '<span style="color:white">N</span>A<span style="color:white">TURAL </span>LIGHT'],
+    inhabitants = ['PEOPLE WHO SLEEP <span style="color:white">VERY LITTLE</span>', 'VEGETARIANS', 'HORSES AND BIRDS', '<span style="color:white">PEOPLE SPEAKING MANY</span> LANGUAGES WEARING <span style="color:white">LITTLE OR NO</span> CLOTHING', 'ALL RACES <span style="color:white">OF MEN</span> REPRESENTED <span style="color:white">WEARING PREDOMINANTLY RED CLOTHING</span>', 'CHILDREN AND OLD PEOPLE', 'VARIOUS BIRDS AND FISH', 'LOVERS', 'FISHERMEN AND FAMILIES', 'PEOPLE WHO ENJOY EATING <span style="color:white">TOGETHER</span>', 'PEOPLE WHO EAT A GREAT DEAL', 'COLLECTORS OF ALL TYPES', 'FRIENDS AND ENEMIES', 'PEOPLE WHO <span style="color:white">SLEEP ALMOST ALL THE</span> TIME', 'VERY TALL PEOPLE', '<span style="color:white">AM</span>ER<span style="color:white">ICAN</span> INDIANS', 'LITTLE BOYS', 'PEOPLE <span style="color:white">FROM MANY WALKS</span> OF LIFE', '<span style="color:white">NEGROS WEARING</span> ALL COLORS', 'FRIENDS', '<span style="color:white">FRENCH AND GERMAN</span> SPEAKING PEOPLE', 'PEOPLE WHO LOVE <span style="color:white">TO READ</span>'];
+
+    function rand_range(maximum) {
+        "use strict";
+        return Math.floor(Math.random() * (maximum + 1));
+    }
+    function choose(array) {
+        "use strict";
+        return array[rand_range(array.length - 1)];
+    }
+    function stanza() {
+        "use strict";
+        return '<span style="color:white">A HO</span>USE OF ' + choose(material) + '<br \>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + choose(place) + '<br \>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:white">U</span>SING ' + choose(light_source) + '<br \>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:white">INHABITED</span> BY ' + choose(inhabitants);
+    }
+    function litany() {
+        "use strict";
+        var last, text, main = document.getElementById('main');
+        if (8 > t) {
+            t += 1;
+        } else {
+            main.removeChild(document.getElementById('main').firstChild);
+        }
+        last = document.createElement('div');
+        last.innerHTML = stanza();
+        main.appendChild(last);
+    }
+    function produce_litany() {
+        "use strict";
+        litany();
+        setInterval(litany, 2000);
+    }
+    let con=1;
+    document.addEventListener("click",function(){
+        if(con===1){
+            document.body.style.animation="backcolor2 15s infinite";
+            con=0;
+        }
+        else if(con===0){
+            document.body.style.animation="backcolor 15s infinite";
+            con=1;
+        }
+    });
+  </script>
+</head>
+
+<body>
+<body onload="produce_litany();">
+  <!-- your content here... -->
+  <h1 class="title">The Poem of Unseen</h1>
+  <h1 class="title2">The Poem of &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seen</h1>
+  <div id="main"></div>
+  <p class="bot-par">Click Anywhere to Reset Background!</p>
+</body>
+</html>
